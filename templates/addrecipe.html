@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="col-xs-11 col-xs-offset-1 col-md-6 col-md-offset-2">
+        <h4 class="text-center">{{ page_title }}</h4>
+            <form action="{{ url_for('insert_recipe') }}" method="POST">
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Dish name, Cuisine, Type</button>
+                            </h5>
+                        </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <label for="dish_name">Dish Name</label>
+                            <input class="form-control form-control-lg dish-input validate" id="dish_name" name="dish_name" type="text" placeholder="Enter a dish name" required>
+                            <label for="name">Author</label>
+                            <input class="form-control form-control-lg dish-input validate" id="name" name="name" type="text" value="{{ session['username']}}">
+                            <label for="image">Place image URL</label>
+                            <input class="form-control form-control-lg dish-input validate" type="url" id="image" name="image" placeholder="URL of image">
+
+                            <label class="origin-and-type">Type</label>
+                            <select id="types" name="type_name" required>
+                                <option value="" disabled selected>Choose Type</option>
+                                {% for typ in types %}
+                                <option class="text-capitalize" value="{{typ.type_name}}">{{typ.type_name}}</option>
+                                {% endfor %}
+                            </select>
+
+                            <label class="origin-and-type">Cuisine</label>
+                            <select id="origins" name="region_of_origin" required>
+                                <option value="" disabled selected>Choose Region</option>
+                                {% for orig in origins %}
+                                <option class="text-capitalize" value="{{orig.region_of_origin}}">{{orig.region_of_origin}}</option>
+                                {% endfor %}
+                            </select>
+                            <br>
+
+                            <label for="prep_time" class="preparations">Prep Time (mins): </label>
+                            <input id="prep_time" type="number" name="prep_time" class="preparations validate" required>
+                            <br>
+
+                            <label for="cooking_time" class="preparations">Cooking Time (mins): </label>
+                            <input id="cooking_time" type="number" name="cooking_time" class="preparations validate" required>
+                            <br>
+
+                            <label for="serves" class="preparations">Serves (persons): </label>
+                            <input id="serves" type="number" name="serves" class="preparations validate" required>
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Ingredients and Quantities</button>
+                            </h5>
+                        </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <label for="ingredient_1">1. Ingredient</label>
+                            <input id="ingredient_1" name="ingredient_1" type="text" class="form-control form-control-lg validate ingr-input" placeholder="Enter quantity and ingredient">
+
+                            <label for="ingredient_2">2. Ingredient</label>
+                            <input id="ingredient_2" name="ingredient_2" type="text" class="form-control form-control-lg validate ingr-input" placeholder="Enter quantity and ingredient">
+
+                            <label for="ingredient_3">3. Ingredient</label>
+                            <input id="ingredient_3" name="ingredient_3" type="text" class="form-control form-control-lg validate ingr-input" placeholder="Enter quantity and ingredient">
+
+                            <label for="ingredient_4">4. Ingredient</label>
+                            <input id="ingredient_4" name="ingredient_4" type="text" class="form-control form-control-lg validate ingr-input" placeholder="Enter quantity and ingredient">
+
+                            <label for="ingredient_5">5. Ingredient</label>
+                            <input id="ingredient_5" name="ingredient_5" type="text" class="form-control form-control-lg validate ingr-input" placeholder="Enter quantity and ingredient">
+
+                            <label for="ingredient_6">6. Ingredient</label>
+                            <input id="ingredient_6" name="ingredient_6" type="text" class="form-control form-control-lg validate ingr-input" placeholder="Enter quantity and ingredient">
+
+                            <label class="ingr-hidden" for="ingredient_7">7. Ingredient</label>
+                            <input id="ingredient_7" name="ingredient_7" type="text" class="form-control form-control-lg validate ingr-input ingr-hidden" placeholder="Enter quantity and ingredient">
+
+                            <label class="ingr-hidden" for="ingredient_8">8. Ingredient</label>
+                            <input id="ingredient_8" name="ingredient_8" type="text" class="form-control form-control-lg validate ingr-input ingr-hidden" placeholder="Enter quantity and ingredient">
+
+                            <label class="ingr-hidden" for="ingredient_9">9. Ingredient</label>
+                            <input id="ingredient_9" name="ingredient_9" type="text" class="form-control form-control-lg validate ingr-input ingr-hidden" placeholder="Enter quantity and ingredient">
+
+                            <label class="ingr-hidden" for="ingredient_10">10. Ingredient</label>
+                            <input id="ingredient_10" name="ingredient_10" type="text" class="form-control form-control-lg validate ingr-input ingr-hidden" placeholder="Enter quantity and ingredient">
+
+                            <input type="button" class="btn addbtn btn-primary show-more" value="Show More">
+
+                        </div>
+                    </div>
+                </div>
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Cooking Instructions</button>
+                            </h5>
+                        </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <label for="cooking_description">Cooking Instructions</label>
+                            <textarea rows="15" id="cooking_description" name="cooking_description" class="validate" placeholder="Cooking instructions here"></textarea>
+
+                            <p><small>Extra information: </small></p>
+                                <div class="container-fluid">
+                                      <div class="col-xs-6 col-md-4 checkbox-thing">
+                                            <input id="vegeterian" name="vegeterian" type="checkbox" class="special-needs" /><span class="checkmark"></span>
+                                            <label for="vegeterian">Vegeterian</label>
+                                      </div>
+                                      <div class="col-xs-6 col-md-4 checkbox-thing">
+                                            <input id="vegan" name="vegan" type="checkbox" class="special-needs" /><span class="checkmark"></span>
+                                            <label for="vegan">Vegan</label>
+                                      </div>
+                                      <div class="col-xs-6 col-md-4 checkbox-thing">
+                                            <input id="gluten_free" name="gluten_free" type="checkbox" class="special-needs" /><span class="checkmark"></span>
+                                            <label for="gluten_free">Gluten Free</label>
+                                      </div>
+                                </div>
+                                    <hr style="width: 50%;">
+
+                            <p><small>Allergens: </small></p>
+                              <div class="container-fluid">
+                                  <div class="col-xs-6 col-md-3 checkbox-thing">
+                                      <input id="milk" name="milk" type="checkbox"/><span class="checkmark"></span>
+                                      <label for="milk">Milk</label>
+                                  </div>
+                                  <div class="col-xs-6 col-md-3 checkbox-thing">
+                                       <input id="peanut" name="peanut" type="checkbox"/><span class="checkmark"></span>
+                                       <label for="peanut">Peanut</label>
+
+                                    </div>
+                                  <div class="col-xs-6 col-md-3 checkbox-thing">
+                                       <input id="egg" name="egg" type="checkbox"/><span class="checkmark"></span>
+                                       <label for="egg">Egg</label>
+                                   </div>
+                                  <div class="col-xs-6 col-md-3 checkbox-thing">
+                                       <input id="soy" name="soy" type="checkbox"/><span class="checkmark"></span>
+                                       <label for="soy">Soy</label>
+                                                    </div>
+                                  <div class="col-xs-6 col-md-3 checkbox-thing">
+                                       <input id="wheat" name="wheat" type="checkbox"/><span class="checkmark"></span>
+                                       <label for="wheat">Wheat</label>
+
+                                  </div>
+                                  <div class="col-xs-6 col-md-3 checkbox-thing">
+                                       <input id="fruit" name="fruit" type="checkbox"/><span class="checkmark"></span>
+                                       <label for="fruit">Fruit</label>
+
+                                  </div>
+                                  <div class="col-xs-6 col-md-3 checkbox-thing">
+                                       <input id="corn" name="corn" type="checkbox"/><span class="checkmark"></span>
+                                       <label for="corn">Corn</label>
+                                  </div>
+
+                                  <div class="col-xs-6 col-md-3 checkbox-thing">
+                                       <input id="garlic" name="garlic" type="checkbox"/><span class="checkmark"></span>
+                                       <label for="corn">Garlic</label>
+                                  </div>
+
+                                  <div class="col-xs-12">
+                                       <label for="other">Other</label>
+                                       <input id="other" name="other" type="text" class="alergen-other"/>
+                                  </div>
+                              </div>
+                                <button type="submit" class="btn addbtn btn-success" name="action">Add recipe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+        $('.ingr-hidden').hide();
+
+        $('.show-more').click(function() {
+            $('.ingr-hidden').show();
+            $('.show-more').hide();
+            });
+    });
+</script>
+
+{% endblock %}

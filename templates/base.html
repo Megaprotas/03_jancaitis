@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cook it like Ramsey</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+<body>
+      <nav class="hidden-xs hidden-sm navbar navbar-light bg-light">
+            <ul class="navbar-nav">
+                {% if 'username' not in session %}
+                <li class="nav-special nav-item">
+                    <strong>Cook It Guest</strong>
+                </li>
+                {% else %}
+                <li class="nav-special nav-item">
+                    <strong>Cook It {{ session['username'] }}</strong>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('get_ingredients')}}">Home </a>
+                </li>
+                {% if 'username' not in session %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('register')}}">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a  class="nav-link" href="{{url_for('login')}}">Log In</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('add_recipe')}}">Add Recipe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('logout')}}">Log Out</a>
+                </li>
+                {% endif %}
+                <li id="srch" class="nav-item nav-special">
+                <form class="form-inline" action="{{ url_for('search') }}">
+                    <input class="searchbar input" name="query" type="search" placeholder="Search by dish, cuisine or type">
+                    <input class="searchbutton submit" type="submit" value="Search">
+                </form>
+                </li>
+              </ul>
+    </nav>
+
+    <div class="hidden-md hidden-lg">
+      <div class="dropdown">
+        <button class="btn btn-mobile-dropdown dropdown-toggle nav-button" type="button" id="dropdownMenuButtonOne" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Menu
+        </button>
+
+        <div class="dropdown-menu nav-dropdown" aria-labelledby="dropdownMenuButtonOne">
+          <ul style="list-style-type: none">
+              {% if 'username' not in session %}
+                <li class="nav-special nav-item">
+                    Cook It Guest
+                </li>
+                {% else %}
+                <li class="nav-special nav-item">
+                    Cook It {{ session['username'] }}
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('get_ingredients')}}">Home </a>
+                </li>
+                {% if 'username' not in session %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('register')}}">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a  class="nav-link" href="{{url_for('login')}}">Log In</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('add_recipe')}}">Add Recipe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('logout')}}">Log Out</a>
+                </li>
+                {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+      {% block content %}{% endblock %}
+
+      <div class="hidden-md hidden-lg">
+          <div class="dropdown">
+                <button class="mobile-search-button btn dropdown-toggle nav-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-sort-up"></i>
+                </button>
+
+
+            <div class="dropdown-menu mobile-search hidden-md hidden-lg text-center" aria-labelledby="dropdownMenuButton">
+                <form class="form-inline" action="{{ url_for('search') }}">
+                    <input class="searchbar input" name="query" type="search" placeholder="Search by dish, cuisine or type">
+                    <input class="searchbutton submit" type="submit" value="Search">
+                </form>
+            </div>
+        </div>
+      </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

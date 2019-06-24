@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="col-xs-11 col-xs-offset-1 col-md-6 col-md-offset-2">
+        <h4 class="text-center">{{ page_title }}</h4>
+
+            <form action="{{url_for('update_recipe', ingredient_id=ingredient._id) }}" method="POST">
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Dish name, Cuisine, Type
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <label for="dish_name">Dish Name</label>
+                                <input class="form-control form-control-lg dish-input validate" id="dish_name" name="dish_name" type="text" value="{{ingredient.dish_name}}">
+
+                                <label for="name">Author</label>
+                                <input class="form-control form-control-lg dish-input validate" id="name" name="name" type="text" value="{{ session['username']}}">
+
+                                <label for="image">Place image URL</label>
+                                <input type="url" class="form-control ingr-input validate" id="image" name="image" value="{{ingredient.image}}">
+
+                                <label class="origin-and-type">Type</label>
+                                    <select id="types" name="type_name">
+                                        <option value="" disabled selected>Choose Type</option>
+                                        {% for typ in types %}
+                                            {% if typ.type_name == ingredient.type_name %}
+                                        <option class="text-capitalize" value="{{typ.type_name}}" selected>{{typ.type_name}}</option>
+                                            {% else %}
+                                        <option class="text-capitalize" value="{{typ.type_name}}">{{typ.type_name}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+
+                                <label class="origin-and-type">Cuisine</label>
+                                    <select id="origins" name="region_of_origin">
+                                        <option value="" disabled selected>Choose Region</option>
+                                        {% for orig in origins %}
+                                            {% if orig.region_of_origin == ingredient.region_of_origin %}
+                                        <option value="{{orig.region_of_origin}}" selected>{{orig.region_of_origin}}</option>
+                                            {% else %}
+                                        <option class="text-capitalize" value="{{orig.region_of_origin}}">{{orig.region_of_origin}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                <br>
+
+                                <label for="prep_time" class="preparations">Prep Time (mins): </label>
+                                <input id="prep_time" type="number" name="prep_time" class="preparations validate" value="{{ ingredient.prep_time }}">
+                                <br>
+
+                                <label for="cooking_time" class="preparations">Cooking Time (mins): </label>
+                                <input id="cooking_time" type="number" name="cooking_time" class="preparations validate" value="{{ ingredient.cooking_time }}">
+                                <br>
+
+                                <label for="serves" class="preparations">Serves (persons): </label>
+                                <input id="serves" type="number" name="serves" class="preparations validate" value="{{ ingredient.serves }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                  Ingredients and Quantities
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                            <div class="card-body">
+
+                                  <label for="ingredient_1">1. Ingredient</label>
+                                  <input id="ingredient_1" name="ingredient_1" type="text" class="validate ingr-input" value="{{ingredient.ingredient_1}}">
+                                  <br>
+
+                                  <label for="ingredient_2">2. Ingredient</label>
+                                  <input id="ingredient_2" name="ingredient_2" type="text" class="validate ingr-input" value="{{ingredient.ingredient_2}}">
+                                  <br>
+
+                                  <label for="ingredient_3">3. Ingredient</label>
+                                  <input id="ingredient_3" name="ingredient_3" type="text" class="validate ingr-input" value="{{ingredient.ingredient_4}}">
+                                  <br>
+
+                                  <label for="ingredient_4">4. Ingredient</label>
+                                  <input id="ingredient_4" name="ingredient_4" type="text" class="validate ingr-input" value="{{ingredient.ingredient_4}}">
+                                  <br>
+
+                                  <label for="ingredient_5">5. Ingredient</label>
+                                  <input id="ingredient_5" name="ingredient_5" type="text" class="validate ingr-input" value="{{ingredient.ingredient_5}}">
+                                  <br>
+
+                                  <label for="ingredient_6">6. Ingredient</label>
+                                  <input id="ingredient_6" name="ingredient_6" type="text" class="validate ingr-input" value="{{ingredient.ingredient_6}}">
+                                  <br>
+
+                                  <label for="ingredient_7">7. Ingredient</label>
+                                  <input id="ingredient_7" name="ingredient_7" type="text" class="validate ingr-input" value="{{ingredient.ingredient_7}}">
+                                  <br>
+
+                                  <label for="ingredient_8">8. Ingredient</label>
+                                  <input id="ingredient_8" name="ingredient_8" type="text" class="validate ingr-input" value="{{ingredient.ingredient_8}}">
+                                  <br>
+
+                                  <label for="ingredient_9">9. Ingredient</label>
+                                  <input id="ingredient_9" name="ingredient_9" type="text" class="validate ingr-input" value="{{ingredient.ingredient_9}}">
+                                  <br>
+
+                                  <label for="ingredient_10">10. Ingredient</label>
+                                  <input id="ingredient_10" name="ingredient_10" type="text" class="validate ingr-input" value="{{ingredient.ingredient_10}}">
+                                  <br>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Cooking Instructions
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                            <div class="card-body">
+
+                                  <label for="cooking_description">Cooking Instructions</label>
+                                  <textarea rows="15" id="cooking_description" name="cooking_description" class="validate">{{ingredient.cooking_description}}</textarea>
+
+                                  <p><small>Extra information: </small></p>
+                                        <div class="container-fluid">
+                                            <div class="col-xs-6 col-md-4 checkbox-thing">
+                                                {% if ingredient.vegeterian %}
+                                                <input id="vegeterian" name="vegeterian" class="special-needs" type="checkbox" checked/><span class="checkmark"></span>
+                                                {% else %}
+                                                <input id="vegeterian" name="vegeterian" class="special-needs" type="checkbox"/><span class="checkmark"></span>
+                                                {% endif %}
+                                                <label class="form-check-label" for="vegeterian">Vegeterian</label>
+                                            </div>
+                                            <div class="col-xs-6 col-md-4 checkbox-thing">
+                                               {% if ingredient.vegan %}
+                                                <input id="vegan" name="vegan" class="special-needs" type="checkbox" checked/><span class="checkmark"></span>
+                                                {% else %}
+                                                <input id="vegan" name="vegan" class="special-needs" type="checkbox"/><span class="checkmark"></span>
+                                                {% endif %}
+                                                <label class="form-check-label" for="vegan">Vegan</label>
+                                            </div>
+                                            <div class="col-xs-6 col-md-4 checkbox-thing">
+                                                {% if ingredient.gluten_free %}
+                                                <input id="gluten_free" name="gluten_free" class="special-needs" type="checkbox" checked/><span class="checkmark"></span>
+                                                {% else %}
+                                                <input id="gluten_free" name="gluten_free" class="special-needs" type="checkbox" /><span class="checkmark"></span>
+                                                {% endif %}
+                                                <label class="form-check-label" for="gluten_free">Gluten Free</label>
+                                            </div>
+                                        </div>
+                                  <hr style="width: 50%;">
+                                  <p><small>Allergens: </small></p>
+
+                                 <div class="container-fluid">
+                                     <div class="col-xs-6 col-md-3 checkbox-thing">
+                                        {% if ingredient.milk %}
+                                        <input id="milk" name="milk" type="checkbox" checked/><span class="checkmark"></span>
+                                        {% else %}
+                                        <input id="milk" name="milk" type="checkbox"/><span class="checkmark"></span>
+                                        {% endif %}
+                                        <label for="milk">Milk</label>
+                                    </div>
+                                    <div class="col-xs-6 col-md-3 checkbox-thing">
+                                        {% if ingredient.peanut %}
+                                        <input id="peanut" name="peanut" type="checkbox" checked/><span class="checkmark"></span>
+                                        {% else %}
+                                        <input id="peanut" name="peanut" type="checkbox" /><span class="checkmark"></span>
+                                        {% endif %}
+                                        <label for="peanut">Peanut</label>
+                                    </div>
+                                    <div class="col-xs-6 col-md-3 checkbox-thing">
+                                        {% if ingredient.egg %}
+                                        <input id="egg" name="egg" type="checkbox" checked/><span class="checkmark"></span>
+                                        {% else %}
+                                        <input id="egg" name="egg" type="checkbox"/><span class="checkmark"></span>
+                                        {% endif %}
+                                        <label for="egg">Egg</label>
+                                    </div>
+                                    <div class="col-xs-6 col-md-3 checkbox-thing">
+                                        {% if ingredient.soy %}
+                                        <input id="soy" name="soy" type="checkbox" checked/><span class="checkmark"></span>
+                                        {% else %}
+                                        <input id="soy" name="soy" type="checkbox"/><span class="checkmark"></span>
+                                        {% endif %}
+                                        <label for="soy">Soy</label>
+                                    </div>
+                                    <div class="col-xs-6 col-md-3 checkbox-thing">
+                                        {% if ingredient.wheat %}
+                                        <input id="wheat" name="wheat" type="checkbox" checked/><span class="checkmark"></span>
+                                        {% else %}
+                                        <input id="wheat" name="wheat" type="checkbox"/><span class="checkmark"></span>
+                                        {% endif %}
+                                        <label for="wheat">Wheat</label>
+                                    </div>
+                                    <div class="col-xs-6 col-md-3 checkbox-thing">
+                                        {% if ingredient.fruit %}
+                                        <input id="fruit" name="fruit" type="checkbox" checked/><span class="checkmark"></span>
+                                        {% else %}
+                                        <input id="fruit" name="fruit" type="checkbox"/><span class="checkmark"></span>
+                                        {% endif %}
+                                        <label for="fruit">Fruit</label>
+                                    </div>
+                                    <div class="col-xs-6 col-md-3 checkbox-thing">
+                                        {% if ingredient.corn %}
+                                        <input id="corn" name="corn" type="checkbox" checked/><span class="checkmark"></span>
+                                        {% else %}
+                                        <input id="corn" name="corn" type="checkbox"/><span class="checkmark"></span>
+                                        {% endif %}
+                                        <label for="corn">Corn</label>
+                                    </div>
+                                    <div class="col-xs-6 col-md-3 checkbox-thing">
+                                        {% if ingredient.corn %}
+                                        <input id="garlic" name="garlic" type="checkbox" checked/><span class="checkmark"></span>
+                                        {% else %}
+                                        <input id="garlic" name="garlic" type="checkbox"/><span class="checkmark"></span>
+                                        {% endif %}
+                                        <label for="garlic">Garlic</label>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <label for="other">Other</label>
+                                        <input class="alergen-other" id="other" name="other" type="text" value="{{ingredient.other}}"/>
+                                    </div>
+                                 </div>
+                                    <button class="btn btn-primary addbtn" type="submit" name="action">Update Recipe</button>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
